@@ -61,7 +61,9 @@ function GlobalContextProvider({ children }) {
       instock: 10,
     },
   ];
+
   const [cart, setCart] = useState([]);
+  const [search, setSearch] = useState("");
 
   return (
     <GlobalContext.Provider
@@ -69,6 +71,8 @@ function GlobalContextProvider({ children }) {
         products,
         cart,
         setCart,
+        search,
+        setSearch,
       }}
     >
       {children}

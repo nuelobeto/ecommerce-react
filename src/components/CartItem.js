@@ -34,7 +34,7 @@ function CartItem({ product }) {
         <img src={product.imgSrc} alt="" />
       </div>
       <div className="title-price">
-        <p className="text">${product.name}</p>
+        <p className="text">{product.name}</p>
         <p className="price">${product.price}</p>
         <div className="quantity">
           <button

@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { GlobalContext } from "../context/GlobalContext";
 
 function Header() {
-  const { cart } = useContext(GlobalContext);
+  const { search, setSearch, cart } = useContext(GlobalContext);
 
   const totalItems = () => {
     let total = 0;
@@ -24,7 +24,7 @@ function Header() {
       <div className="icons-container">
         <div className="icons">
           <MenuIcon className="icon" />
-          <Link to="/products">
+          <Link to="/">
             <h3 className="logo">Nuel's</h3>
           </Link>
         </div>
@@ -37,7 +37,12 @@ function Header() {
         </div>
       </div>
       <div className="search">
-        <input type="text" placeholder="search items" />
+        <input
+          type="text"
+          placeholder="search items"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <button id="searchBtn">
           <SearchIcon className="icon" />
         </button>

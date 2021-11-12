@@ -17,7 +17,7 @@ function Cart() {
 
   return (
     <div class="cart" id="cart">
-      <h3 class="total">Total: {totalPrice()}</h3>
+      <h3 class="total">Total: ${totalPrice()}</h3>
       <div class="cart-items">
         {cart.map((product) => (
           <CartItem key={product.id} product={product} />
