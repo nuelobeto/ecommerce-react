@@ -1,24 +1,26 @@
 import React, { useContext } from "react";
 import "./Product.css";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalState";
 
 function Product({ product }) {
-  const { products, cart, setCart } = useContext(GlobalContext);
+  const { products, cart, addToCart, updateQuantity } =
+    useContext(GlobalContext);
 
-  const addToCart = (id) => {
+  const handleAddToCart = (id) => {
     if (cart.some((product) => product.id === id)) {
-      updateQuantity("plus", id);
+      handleUpdateQuantity("plus", id);
     } else {
-      const item = products.find((product) => product.id === id);
-      const newItem = {
-        ...item,
+      const clickedProduct = products.find((product) => product.id === id);
+
+      const newCartItem = {
+        ...clickedProduct,
         quantity: 1,
       };
-      setCart([newItem, ...cart]);
+      addToCart(newCartItem);
     }
   };
 
-  const updateQuantity = (action, id) => {
+  const handleUpdateQuantity = (action, id) => {
     let update = cart.map((product) => {
       let quantity = product.quantity;
       if (product.id === id) {
@@ -33,7 +35,7 @@ function Product({ product }) {
         quantity,
       };
     });
-    setCart(update);
+    updateQuantity(update);
   };
 
   return (
@@ -43,7 +45,10 @@ function Product({ product }) {
       <p className="product-price">${product.price}</p>
       <div className="overlay">
         <div className="opacity"></div>
-        <span className="add-to-cart" onClick={() => addToCart(product.id)}>
+        <span
+          className="add-to-cart"
+          onClick={() => handleAddToCart(product.id)}
+        >
           add to cart
         </span>
       </div>

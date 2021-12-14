@@ -8,10 +8,25 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <Header />
         <Routes>
-          <Route path="/" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <Products />
+              </>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <>
+                <Header />
+                <Cart />
+              </>
+            }
+          />
         </Routes>
       </div>
     </Router>

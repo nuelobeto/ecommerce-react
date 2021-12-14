@@ -1,23 +1,25 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalState";
 
 function Header() {
-  const { search, setSearch, cart } = useContext(GlobalContext);
+  const { cart } = useContext(GlobalContext);
+  const [search, setSearch] = useState("");
 
   const totalItems = () => {
     let total = 0;
     cart.forEach((product) => {
       total += product.quantity;
     });
-
     return total;
   };
+
+  const handleSearch = () => {};
 
   return (
     <header>
@@ -44,7 +46,7 @@ function Header() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button id="searchBtn">
-          <SearchIcon className="icon" />
+          <SearchIcon className="icon" onClick={handleSearch} />
         </button>
       </div>
     </header>

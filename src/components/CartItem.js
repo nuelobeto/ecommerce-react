@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import "./CartItem.css";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalState";
 
 function CartItem({ product }) {
-  const { cart, setCart } = useContext(GlobalContext);
+  const { cart, updateQuantity, removeFromCart } = useContext(GlobalContext);
 
-  const updateQuantity = (action, id) => {
+  const handleUpdateQuantity = (action, id) => {
+    const item = cart.find((item) => item.id === id);
+
     let update = cart.map((product) => {
       let quantity = product.quantity;
       if (product.id === id) {
@@ -20,12 +22,14 @@ function CartItem({ product }) {
         quantity,
       };
     });
-    setCart(update);
+
+    let index = update.findIndex((product) => product.id === id);
+
+    updateQuantity(update, index, id);
   };
 
-  const deleteItem = (id) => {
-    const newCart = cart.filter((product) => product.id !== id);
-    setCart(newCart);
+  const handleDelete = (id) => {
+    removeFromCart(id);
   };
 
   return (
@@ -39,19 +43,19 @@ function CartItem({ product }) {
         <div className="quantity">
           <button
             className="minus"
-            onClick={() => updateQuantity("minus", product.id)}
+            onClick={() => handleUpdateQuantity("minus", product.id)}
           >
             -
           </button>
           <input className="" type="number" value={product.quantity} />
           <button
             className="plus"
-            onClick={() => updateQuantity("plus", product.id)}
+            onClick={() => handleUpdateQuantity("plus", product.id)}
           >
             +
           </button>
         </div>
-        <button className="removeItem" onClick={() => deleteItem(product.id)}>
+        <button className="removeItem" onClick={() => handleDelete(product.id)}>
           Remove from cart
         </button>
       </div>

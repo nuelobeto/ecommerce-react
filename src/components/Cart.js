@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./Cart.css";
 import CartItem from "./CartItem";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalState";
 
 function Cart() {
   const { cart } = useContext(GlobalContext);
@@ -11,13 +11,12 @@ function Cart() {
     cart.forEach((product) => {
       total += product.price * product.quantity;
     });
-
     return total.toFixed(2);
   };
 
   return (
     <div class="cart" id="cart">
-      <h3 class="total">Total: ${totalPrice()}</h3>
+      <h3 class="total">Total Price: ${totalPrice()}</h3>
       <div class="cart-items">
         {cart.map((product) => (
           <CartItem key={product.id} product={product} />

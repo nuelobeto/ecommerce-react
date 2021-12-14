@@ -1,27 +1,18 @@
 import React, { useContext } from "react";
 import "./Products.css";
 import Product from "./Product";
-import { GlobalContext } from "../context/GlobalContext";
+import { GlobalContext } from "../context/GlobalState";
 
 function Products() {
-  const { products, search } = useContext(GlobalContext);
+  const { products } = useContext(GlobalContext);
+
   return (
     <section>
       <p>Products</p>
-      <div class="products">
-        {products
-          .filter((product) => {
-            if (search === "") {
-              return product;
-            } else if (
-              product.name.toLowerCase().includes(search.toLowerCase())
-            ) {
-              return product;
-            }
-          })
-          .map((product) => (
-            <Product key={product.id} product={product} />
-          ))}
+      <div className="products">
+        {products.map((product) => (
+          <Product key={product.id} product={product} />
+        ))}
       </div>
     </section>
   );
